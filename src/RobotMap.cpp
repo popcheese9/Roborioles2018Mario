@@ -22,7 +22,7 @@ std::shared_ptr<WPI_TalonSRX> RobotMap::driveBaseRightMotor1;
 std::shared_ptr<frc::DifferentialDrive> RobotMap::driveBaseDiffDrive;
 std::shared_ptr<WPI_TalonSRX> RobotMap::driveBaseLeftMotor2;
 std::shared_ptr<WPI_TalonSRX> RobotMap::driveBaseRightMotor2;
-std::shared_ptr<WPI_TalonSRX> RobotMap::elevatorLiftMotor;
+std::shared_ptr<frc::SpeedController> RobotMap::elevatorLiftMotor;
 std::shared_ptr<frc::SpeedController> RobotMap::intakeLeftIntakeMotor;
 std::shared_ptr<frc::SpeedController> RobotMap::intakeRightIntakeMotor;
 std::shared_ptr<frc::Compressor> RobotMap::pneumaticsCompressor;
@@ -52,8 +52,8 @@ void RobotMap::init() {
     driveBaseRightMotor2.reset(new WPI_TalonSRX(4));
     
     
-    elevatorLiftMotor.reset(new WPI_TalonSRX(5));
-    
+    elevatorLiftMotor.reset(new frc::Talon(2));
+    lw->AddActuator("Elevator", "LiftMotor", std::static_pointer_cast<frc::Talon>(elevatorLiftMotor));
     
     intakeLeftIntakeMotor.reset(new frc::Talon(0));
     lw->AddActuator("Intake", "LeftIntakeMotor", std::static_pointer_cast<frc::Talon>(intakeLeftIntakeMotor));

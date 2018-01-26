@@ -32,7 +32,7 @@ public:
 	static std::shared_ptr<frc::DifferentialDrive> driveBaseDiffDrive;
 	static std::shared_ptr<WPI_TalonSRX> driveBaseLeftMotor2;
 	static std::shared_ptr<WPI_TalonSRX> driveBaseRightMotor2;
-	static std::shared_ptr<WPI_TalonSRX> elevatorLiftMotor;
+	static std::shared_ptr<frc::SpeedController> elevatorLiftMotor;
 	static std::shared_ptr<frc::SpeedController> intakeLeftIntakeMotor;
 	static std::shared_ptr<frc::SpeedController> intakeRightIntakeMotor;
 	static std::shared_ptr<frc::Compressor> pneumaticsCompressor;
