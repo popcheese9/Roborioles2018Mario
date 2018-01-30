@@ -78,7 +78,7 @@ void DriveBase::DriveWithJoystick()
 	int quadPosR = rightMotor2->GetSensorCollection().GetQuadraturePosition();
 	int quadVelR = rightMotor2->GetSensorCollection().GetQuadratureVelocity();
 
-	int quadVelRCalculated = ((quadVelR*10)/4096)*60;
+	int quadVelRrpm = ((quadVelR*10)/4096)*60;
 
 	frc::SmartDashboard::PutNumber("Amps",currentAmps);
 	frc::SmartDashboard::PutNumber("OutputV",outputV);
@@ -87,7 +87,7 @@ void DriveBase::DriveWithJoystick()
 	frc::SmartDashboard::PutNumber("QuadPos",quadPos);
 	frc::SmartDashboard::PutNumber("QuadVel",quadVel);
 	frc::SmartDashboard::PutNumber("QuadPosR",quadPosR);
-	frc::SmartDashboard::PutNumber("QuadVelR",quadVelRCalculated);
+	frc::SmartDashboard::PutNumber("QuadVelR",quadVelRrpm);
 	frc::SmartDashboard::PutNumber("OGQuadVelR", quadVelR);
 
 }
