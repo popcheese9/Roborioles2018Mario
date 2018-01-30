@@ -75,6 +75,7 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
+	Robot::driveBase->AutoShift();
 }
 
 START_ROBOT_CLASS(Robot);

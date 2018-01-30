@@ -105,3 +105,16 @@ void DriveBase::UseShift()
 
 
 }
+
+void DriveBase::AutoShift(){
+	double motorVelocity = rightMotor2->GetSensorCollection().GetQuadratureVelocity();
+	bool isHigh = shiftController->Get();
+	int rpm = ((motorVelocity*10)/4096)*60;
+	if(isHigh == false && rpm > 1300){
+		shiftController->Set(true);
+	}
+
+	if(isHigh == true && rpm < 1100){
+		shiftController->Set(false);
+	}
+}
