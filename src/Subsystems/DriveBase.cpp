@@ -43,6 +43,8 @@ DriveBase::DriveBase() : frc::Subsystem("DriveBase") {
 
     //set right2 follow right1
     rightMotor2->Set(ControlMode::Follower,3);
+
+    quadVelRrpm = DriveBase::quadVelRrpm;
 }
 
 void DriveBase::InitDefaultCommand() {
@@ -78,7 +80,7 @@ void DriveBase::DriveWithJoystick()
 	int quadPosR = rightMotor2->GetSensorCollection().GetQuadraturePosition();
 	int quadVelR = rightMotor2->GetSensorCollection().GetQuadratureVelocity();
 
-	int quadVelRrpm = ((quadVelR*10)/4096)*60;
+	quadVelRrpm = ((quadVelR*10)/4096)*60;
 
 	frc::SmartDashboard::PutNumber("Amps",currentAmps);
 	frc::SmartDashboard::PutNumber("OutputV",outputV);
@@ -104,4 +106,16 @@ void DriveBase::UseShift()
    }
 
 
+}
+
+void DriveBase::AutoShift()
+{
+	bool isEngaged = shiftController->Get();
+	if(!isEngaged && quadVelRrpm > 1000)
+	{
+		shiftController->Set(true);
+	}else if(isEngaged && quadVelRrpm < 1200)
+	{
+		shiftController->Set(false);
+	}
 }

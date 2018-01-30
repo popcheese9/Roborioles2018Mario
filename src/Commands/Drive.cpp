@@ -31,6 +31,7 @@ void Drive::Initialize() {
 void Drive::Execute()
 {
 	Robot::driveBase->DriveWithJoystick();
+	Robot::driveBase->AutoShift();
 }
 
 // Make this return true when this Command no longer needs to run execute()
