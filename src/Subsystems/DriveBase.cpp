@@ -39,6 +39,49 @@ DriveBase::DriveBase() : frc::Subsystem("DriveBase") {
 
     //set right2 follow right1
     rightMotor2->Set(ControlMode::Follower,3);
+	int kTimeoutMs=10;
+	int kPIDLoopIdx=0;
+
+	leftMotor2->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 10);
+	rightMotor2->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 10);
+
+leftMotor2->SetSensorPhase(false);
+//  rightMotor2->SetSensorPhase(true);
+	leftMotor2->ConfigNominalOutputForward(0, kTimeoutMs);
+
+	leftMotor2->ConfigNominalOutputReverse(0, kTimeoutMs);
+
+	leftMotor2->ConfigPeakOutputForward(1, kTimeoutMs);
+
+	leftMotor2->ConfigPeakOutputReverse(-1, kTimeoutMs);
+
+	/* set closed loop gains in slot0 */
+
+	leftMotor2->Config_kF(kPIDLoopIdx, 0.0, kTimeoutMs);
+
+	leftMotor2->Config_kP(kPIDLoopIdx, 0.3, kTimeoutMs);
+
+	leftMotor2->Config_kI(kPIDLoopIdx, 0.003, kTimeoutMs);
+
+	leftMotor2->Config_kD(kPIDLoopIdx, 35.0, kTimeoutMs);
+
+	rightMotor2->ConfigNominalOutputForward(0, kTimeoutMs);
+
+	rightMotor2->ConfigNominalOutputReverse(0, kTimeoutMs);
+
+	rightMotor2->ConfigPeakOutputForward(1, kTimeoutMs);
+
+	rightMotor2->ConfigPeakOutputReverse(-1, kTimeoutMs);
+
+	/* set closed loop gains in slot0 */
+
+	rightMotor2->Config_kF(kPIDLoopIdx, 0.0, kTimeoutMs);
+
+	rightMotor2->Config_kP(kPIDLoopIdx, 0.3, kTimeoutMs);
+
+	rightMotor2->Config_kI(kPIDLoopIdx, 0.003, kTimeoutMs);
+
+	rightMotor2->Config_kD(kPIDLoopIdx, 35.0, kTimeoutMs);
 }
 
 void DriveBase::InitDefaultCommand() {
@@ -54,7 +97,29 @@ void DriveBase::Periodic() {
     // Put code here to be run every loop
 
 }
+void DriveBase::AutoDrive(){
+	double targetleftposition=10.0*10*4096;
+	double targetrightposition=10.0*10*4096;
+	leftMotor2->Set(ControlMode::Position,targetleftposition);
+	rightMotor2->Set(ControlMode::Position,targetrightposition);
 
+}
+void DriveBase::PrintValues(){
+	double lefterror=leftMotor2->GetClosedLoopError(0)*1.0;
+	frc::SmartDashboard::PutNumber("Error Left",lefterror);
+	double righterror=rightMotor2->GetClosedLoopError(0)*1.0;
+	frc::SmartDashboard::PutNumber("Error Right",righterror);
+
+}
+void DriveBase::EncoderReset(){
+	// Relative encoder reset
+	leftMotor2->SetSelectedSensorPosition(int (leftMotor2->GetSelectedSensorPosition(0) & 0xFFF),0,10);
+	rightMotor2->SetSelectedSensorPosition(int (rightMotor2->GetSelectedSensorPosition(0) & 0xFFF),0,10);
+
+	// Absolute encoder reset (didn't work)
+	//leftMotor2->SetSelectedSensorPosition(0,0,10);
+	//rightMotor2->SetSelectedSensorPosition(0,0,10);
+}
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

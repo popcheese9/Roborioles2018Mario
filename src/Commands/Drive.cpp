@@ -23,13 +23,14 @@ Drive::Drive(): frc::Command() {
 
 // Called just before this Command runs the first time
 void Drive::Initialize() {
-
+Robot::driveBase->AutoDrive();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Drive::Execute()
 {
-	Robot::driveBase->DriveWithJoystick();
+	Robot::driveBase->PrintValues();
+	//Robot::driveBase->DriveWithJoystick();
 }
 
 // Make this return true when this Command no longer needs to run execute()

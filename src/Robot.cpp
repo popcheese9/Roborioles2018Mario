@@ -64,6 +64,7 @@ void Robot::TeleopInit() {
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove
 	// these lines or comment it out.
+	Robot::driveBase->EncoderReset();
 	if (autonomousCommand != nullptr)
 		autonomousCommand->Cancel();
 }
