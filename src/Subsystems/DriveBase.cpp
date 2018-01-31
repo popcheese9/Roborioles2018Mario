@@ -114,7 +114,7 @@ void DriveBase::AutoShift()
 	if(!isEngaged && quadVelRrpm > 1000)
 	{
 		shiftController->Set(true);
-	}else if(isEngaged && quadVelRrpm < 1200)
+	}else if(isEngaged && quadVelRrpm < 800)
 	{
 		shiftController->Set(false);
 	}
