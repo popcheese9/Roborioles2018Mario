@@ -45,6 +45,9 @@ DriveBase::DriveBase() : frc::Subsystem("DriveBase") {
     rightMotor2->Set(ControlMode::Follower,3);
 
     quadVelRrpm = DriveBase::quadVelRrpm;
+
+    shiftUpPoint = DriveBase::shiftUpPoint;
+    shiftDownPoint = DriveBase::shiftDownPoint;
 }
 
 void DriveBase::InitDefaultCommand() {

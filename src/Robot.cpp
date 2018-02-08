@@ -71,6 +71,9 @@ void Robot::TeleopInit() {
 	// these lines or comment it out.
 	if (autonomousCommand != nullptr)
 		autonomousCommand->Cancel();
+
+	frc::SmartDashboard::GetNumber("Shift_Up_Point", Robot::driveBase->shiftUpPoint);
+	frc::SmartDashboard::GetNumber("Shift_Down_Point", Robot::driveBase->shiftDownPoint);
 }
 
 void Robot::TeleopPeriodic() {
